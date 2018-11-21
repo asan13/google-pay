@@ -64,35 +64,39 @@ sub new {
 
 Returns the decrypted message.
 
-Example message for the payment method TOKENIZED_CARD::
+Example message for the CRYPTOGRAM_3DS auth method:
 
     {
-        paymentMethod        => 'TOKENIZED_CARD',
-        messageExpiration    => '1527972327899',
-        messageId            => 'AH2EjtfdYY...',
-        paymentMethodDetails => {
-            dpan            => '5204240250197840',
-            authMethod      => '3DS',
-            3dsCryptogram   => 'ALnt+yWSJdXBACMLLWMNGgADFA==',
-            expirationYear  => 2023,
-            expirationMonth => 12
-        }
+        "paymentMethod": "CARD",
+        "paymentMethodDetails": {
+            "authMethod": "CRYPTOGRAM_3DS",
+            "pan": "1111222233334444",
+            "expirationMonth": 10,
+            "expirationYear": 2020,
+            "cryptogram": "AAAAAA...",
+            "eciIndicator": "eci indicator"
+        },
+        "messageId": "some-message-id",
+        "messageExpiration": "1577862000000"
     }
+
 
 for CARD:
 
-    {                                
-        paymentMethod        => 'CARD',
-        messageExpiration    => '1527971896184'
-        messageId            => 'AH2EjtfC20...',
-        paymentMethodDetails => {
-            pan             => '4111111111111111',
-            expirationMonth => 12,
-            expirationYear  => 2023
-        }
+    {
+        "paymentMethod": "CARD",
+        "paymentMethodDetails": {
+            "authMethod": "PAN_ONLY",
+            "pan": "1111222233334444",
+            "expirationMonth": 10,
+            "expirationYear": 2020
+        },
+        "messageId": "some-message-id",
+        "messageExpiration": "1577862000000"
     }
 
 =cut
+
 
 sub decrypt_message {
     my $self = shift;
